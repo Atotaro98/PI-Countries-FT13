@@ -19,9 +19,35 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const axios = require('axios')
+const { Country, Season } = require('./src/db');
 
 // Syncing all the models at once.
+
+let CreateDataBase = async () =>{
+let season = ["Winter", "Autumn", "Spring", "Summer"]
+await Promise.all(season.map((s) => Season.findOrCreate({ where: { name: s } })))
+let countries = await axios.get(`https://restcountries.eu/rest/v2/all`)
+await Promise.all(countries.data.map((c) =>{
+    let data = {
+        name: c.name,
+        alpha3Code: c.alpha3Code,
+        flag: c.flag,
+        capital: c.capital ? c.capital : 'no tiene capital',
+        region: c.region,
+        subregion: c.subregion,
+        area: parseInt(c.area) ? parseInt(c.area) : 0,
+        population: parseInt(c.population)  
+    }
+        Country.findOrCreate({where: data})
+    }))
+   
+  }
+
+  CreateDataBase();
+
 conn.sync({ force: true }).then(() => {
+   
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
