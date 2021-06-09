@@ -4,7 +4,7 @@ const { Country, Activity} = require('../db');
 
 router.get('/', async (req, res) =>{
     
-    let {page, name} = req.query
+    let {page, name, sort} = req.query
     try{
         if(page  === "all"){
             let countries = await Country.findAll({
@@ -12,50 +12,49 @@ router.get('/', async (req, res) =>{
             })
             return countries ? res.json(countries) : res.sendStatus(404)
         }
+        if (page) {
 
-        if(page === "AtoZ"){
-            return res.json(await Country.findAll({
-                order: [['name', 'ASC']],
-                include: {model: Activity,},
-                limit: 10,
-                offset : (page - 1) * 10
-                
-            }))
-        } 
-        if(page === "ZtoA"){
-            return res.json(await Country.findAll({
-                order: [['name', 'DESC']],
-                include: { model: Activity},
-                limit: 10,
-                offset : (page - 1) * 10
-            }))
-        }
-        if(page === "pobAsc"){
-            return res.json(await Country.findAll({
-                order: [['population', 'ASC']],
-                include: {model: Activity},
-                limit: 10,
-                offset : (page - 1) * 10,
-            }))
-        }
-        if(page === "pobDes"){
-            return res.json(await Country.findAll({
-                order: [['population', 'DESC']],
-                include: {model: Activity},
-                limit: 10,
-                offset : (page - 1) * 10,
-            }))
-        }
-        if(page){
-            return res.json(await Country.findAll({
-                include: { model: Activity },
-                limit: 10,
-                offset : (page - 1) * 10,
-            }))
+            switch (sort) {
+                case "AtoZ":
+                    return res.json(await Country.findAll({
+                        order: [['name', 'ASC']],
+                        include: {model: Activity,},
+                        limit: 10,
+                        offset: 10 * (page - 1)
+                    }))
+                case "ZtoA":
+                    return res.json(await Country.findAll({
+                        order: [['name', 'DESC']],
+                        include: { model: Activity},
+                        limit: 10,
+                        offset: 10 * (page - 1)
+                    }))
+                case "pobAsc":
+                    return res.json(await Country.findAll({
+                        order: [['population', 'ASC']],
+                        include: {model: Activity},
+                        limit: 10,
+                        offset: 10 * (page - 1)
+                    }))
+                case "pobDes":
+                    return res.json(await Country.findAll({
+                        order: [['population', 'DESC']],
+                        include: {model: Activity},
+                        limit: 10,
+                        offset: 10 * (page - 1)
+                    }))
+
+                default:
+                    return res.json(await Country.findAll({
+                        include: { model: Activity },
+                        limit: 10,
+                        offset: 10 * (page - 1)
+                    }))
+            }
         }
         if (name) {
             let country = await Country.findAll({
-                include: {model: Activity},
+                include: { model: Activity },
                 where: { name: { [Sequelize.Op.iLike]: `%${name}%` } }
             })
             return country ? res.json(country) : res.sendStatus(404)

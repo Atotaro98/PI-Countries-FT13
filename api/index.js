@@ -20,13 +20,12 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const axios = require('axios')
-const { Country, Season } = require('./src/db');
+const { Country } = require('./src/db');
 
 // Syncing all the models at once.
 
-let CreateDataBase = async () =>{
-let season = ["Winter", "Autumn", "Spring", "Summer"]
-await Promise.all(season.map((s) => Season.findOrCreate({ where: { name: s } })))
+let CreateDataBase = async () => {
+
 let countries = await axios.get(`https://restcountries.eu/rest/v2/all`)
 await Promise.all(countries.data.map((c) =>{
     let data = {
@@ -40,11 +39,15 @@ await Promise.all(countries.data.map((c) =>{
         population: parseInt(c.population)  
     }
         Country.findOrCreate({where: data})
+        
     }))
-   
+    
   }
 
-  CreateDataBase();
+    CreateDataBase();
+    console.log('DataBaseCreated')
+
+  
 
 conn.sync({ force: true }).then(() => {
    
