@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Sequelize } = require("sequelize");
 const { Country, Activity } = require('../db');
 
-router.post('/', async (req, res, next) =>{
+router.post('/', async (req, res) =>{
     let { name, difficulty, duration, season, country, } = req.body
     console.log(req.body)
     try {
