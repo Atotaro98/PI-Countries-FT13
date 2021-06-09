@@ -3,7 +3,6 @@ import  {GET_ALL, GET_BY_ID, GET_BY_NAME, GET_ALL_BY_ORDER} from '../actions/act
 
 let initialState = {
     countries: [],
-    countriesPage: [],
     country: [],
   };
 
@@ -25,7 +24,7 @@ let initialState = {
     if (action.type === GET_BY_NAME) {
       return {
         ...state,
-        countriesPage: action.payload
+        countries: action.payload
       };
     }
 

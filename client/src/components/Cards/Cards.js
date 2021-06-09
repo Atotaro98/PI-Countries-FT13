@@ -1,7 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Card from "../Card/Card";
-import { Link, useParams } from 'react-router-dom'
-import {getAllByOrder} from '../../actions/actions'
+import { Link, useParams } from 'react-router-dom';
+import { getAllByOrder } from '../../actions/actions';
+
 import { useDispatch } from "react-redux";
 import './Cards.css'
 
@@ -11,6 +12,7 @@ export default function Cards({countries}) {
   const [actualCountries, setActualCountries] = useState([]);
   const [actualPage, setActualPage] = useState(1);
   const [order, setOrder] = useState();
+  
 
   const dispatch = useDispatch();
   
@@ -35,13 +37,20 @@ export default function Cards({countries}) {
 }, [order]);
 
 
+
+
   function changeSort(e) {
     setOrder(e.target.value)
 }
 
+
+
+
   return (
     <Fragment>
       <div>
+       
+        
         <button onClick={() => paginado(actualPage >= 1 ? actualPage - 1 : actualPage) } >{` < `}</button>
         <span>{actualPage}</span>
         <button onClick={() => paginado(actualPage < numberOfPages ? actualPage + 1 : actualPage) } >{` > `}</button>
