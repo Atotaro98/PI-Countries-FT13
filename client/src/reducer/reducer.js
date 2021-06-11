@@ -1,43 +1,41 @@
-import  {GET_ALL, GET_BY_ID, GET_BY_NAME, GET_ALL_BY_ORDER} from '../actions/actions'
-
-
 let initialState = {
-    countries: [],
-    country: [],
-  };
+  countries: [],
+  country: []
+};
 
+const Actions = (state = initialState, action) => {
 
-  function rootReducer(state = initialState, action) {
- 
-    if (action.type === GET_ALL) {
+  switch (action.type) {
+    case "GET_PAGE":
       return {
         ...state,
         countries: action.payload
       }
-    }
-    if (action.type === GET_ALL_BY_ORDER) {
+    case "GET_ALL":
       return {
         ...state,
         countries: action.payload
       }
-    }
-    if (action.type === GET_BY_NAME) {
-      return {
-        ...state,
-        countries: action.payload
-      };
-    }
 
-    if (action.type === GET_BY_ID) {
+    case "GET_BY_ID":
       return {
         ...state,
         country: action.payload
       }
-    }
-    return state;
+    case "GET_BY_NAME":
+      return {
+        ...state,
+        countries: action.payload
+      }
+
+      case "POST_ACTIVITY":
+        return {
+            ...state
+        }
+    
+    default:
+      return state;
   }
-  
-  export default rootReducer;  
-  
- 
-  
+}
+
+export default Actions;
