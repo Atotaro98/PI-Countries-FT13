@@ -20,7 +20,7 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const axios = require('axios')
-const { Country } = require('./src/db');
+const { Countries } = require('./src/db');
 
 // Syncing all the models at once.
 
@@ -38,7 +38,7 @@ await Promise.all(countries.data.map((c) =>{
         area: parseInt(c.area) ? parseInt(c.area) : 0,
         population: parseInt(c.population)  
     }
-        Country.findOrCreate({where: data})
+        Countries.findOrCreate({where: data})
         
     }))
     

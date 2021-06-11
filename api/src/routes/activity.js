@@ -1,26 +1,21 @@
 const router = require('express').Router();
 const { Sequelize } = require("sequelize");
-const { Country, Activity } = require('../db');
+const { Countries, Activities } = require('../db');
 
 router.post('/', async (req, res) =>{
-    let { name, difficulty, duration, season, country, } = req.body
-    console.log(req.body)
     try {
-        let createActivity = await Activity.findOrCreate({
-            where: {
-                name,
-                difficulty,
-                duration,
-                season
-            }
+        let createActivity = await Activities.create(
+               req.body[0]
+        )
+        
+            req.body[1].forEach(async e =>{
+            const CountriesPush = await Countries.findOne({
+                where: { alpha3Code: e }
+            })
+            
+             createActivity.addCountries(CountriesPush)
         })
-        let aux_country = await Country.findAll({
-            include: { model: Activity },
-            where: { name: { [Sequelize.Op.iLike]: `%${country}%` } }
-
-        })
-        console.log(createActivity, aux_country)
-        await createActivity[0].setCountries(aux_country[0])
+        console.log(createActivity)
         res.json(createActivity)
     } catch (e) {
         res.status(404).send(e)
