@@ -8,8 +8,8 @@ const Card = (props) => {
                 <img className="img" src={props.flag} alt="flag" />
             </div>
             <div className="container" >
-                <h4>Country Name : {props.name}</h4>
-                <p>Region : {props.region}</p>
+                 <h4>{props.name}</h4>
+                <h4>Region : <span className="Span-Card">{props.region}</span></h4>
             </div>
         </div>
     )

@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       
-      <Route  exact path="/"><LandingPage/></Route>
+      <Route  exact path="/home"><LandingPage/></Route>
       <Route  path={["/home", "/country", "/add", "/about"]}><Nav/></Route>
       <Route  exact path="/home"><HomePage/></Route>
       <Route  exact path="/country/:id"><CountryDetails/></Route>     

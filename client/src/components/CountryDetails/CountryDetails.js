@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getById } from '../../actions/actions';
+import  ReturnImg  from './return.svg'
 import './CountryDetails.css'
 
 
@@ -20,12 +21,16 @@ const CountrDetails = () => {
     //   }
 
     return (
-       
-        <div className="container">
-            <div className="imagen-Container">
-                <img src={flag} alt="flag" />
+        
+       <div className="Details-Content">
+        <div className="card-Details">
+            <div className="Return-Icon">
+        <a href="javascript: history.go(-1)"><img src={ReturnImg}></img></a>
             </div>
-            <div>
+            <div className="imgContainer-Details">
+                <img className="img-Details" src={flag} alt="flag" />
+            </div>
+            <div className="container-Details">
 
                 <h1>Name: {name}</h1>
                 <p>Country code: {alpha3Code}</p>
@@ -35,9 +40,7 @@ const CountrDetails = () => {
                 <p>Area: {area} Km2</p>
                 <p>Population: {population}</p>
                 {/* <p>Population: {formatNumber(population)}</p> */}
-            </div>
-
-            <span>
+                <span>
                 <h3>Activities:</h3>
                 <p>
                     {Activities&&Activities.length ?
@@ -51,6 +54,10 @@ const CountrDetails = () => {
                      : <p>No activities yet</p>}   
                 </p>
             </span>
+            </div>
+            </div>
+
+           
 
         </div>
 
