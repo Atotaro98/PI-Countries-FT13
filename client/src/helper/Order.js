@@ -74,30 +74,48 @@ const Order = () => {
     return (
         <div>
             <div className="Display-Filters">
-                        <div className="Paginado">
-                            <button  id="prev" onClick={(e) => prevPage(e)}>{` < `}</button>
-                                            <span> {page}  </span>
-                            <button id="next" onClick={(e) => nextPage(e)}>{` > `}</button>
-                        </div>
+                        
+
+                        {/* BUSQUEDA POR NOMBRE */}
+
+                    <div className="Finder-By-Name">
+                                        <input  
+                                            placeholder="Find Country"
+                                            onChange={(e) => setFilter({ ...filter, name: e.target.value })}
+                                            value={filter.name}
+                                            class="form-control"
+                                        />
+                            
+
+                            </div>
+
+
+                            {/* FILTRADO POR ACTIVIDAD */}
+
+
+                            <div className="Order-By-Activity">
+                         <select  onChange={(e) => setFilter({...filter, activity: e.target.value })}>
+                                <option value="">All Activities</option>
+                                {uniqs.map((item, i) => <option key={i} value={item}>{item}</option>)}
+                         </select>  
+                                </div> 
 
 
 
+                    
 
+                            <div className="Paginado">
+                                    <button  id="prev" onClick={(e) => prevPage(e)}>{` < `}</button>
+                                                    <span> {page}  </span>
+                                    <button id="next" onClick={(e) => nextPage(e)}>{` > `}</button>
+                                </div>
 
+                    
 
-                    <div className="Order">
-
-                            {/* ORDERNADO POR NOMBRE O POBLACION */}
-
-                        <select  onChange={(e) => changeSort(e)}>
-                            <option value= ""> Order By</option>
-                            <option value="AtoZ">A to Z</option>
-                            <option value="ZtoA">Z to A</option>
-                            <option value="pobAsc">Ascending Population</option>
-                            <option value="pobDes">Descending Population</option>
-                        </select>
 
                             {/* ORDENADO POR REGIONES */}
+
+                            <div className="Order-By-Region">
 
                         <select  onChange={(e) => changeSort(e)}>
                             <option value="">All Regions</option>
@@ -108,28 +126,34 @@ const Order = () => {
                             <option value="Oceania">Oceania</option>
                             <option value="Polar">Polar</option>
                          </select>
+                            </div> 
+                     
 
-                                {/* FILTRADO POR ACTIVIDAD */}
+                            {/* ORDERNADO POR NOMBRE O POBLACION */}
 
-                         <select  onChange={(e) => setFilter({...filter, activity: e.target.value })}>
-                                <option value="">All</option>
-                                {uniqs.map((item, i) => <option key={i} value={item}>{item}</option>)}
-                         </select>   
-                    </div>
+                                <div className="Order-By-Name">
+                        <select  onChange={(e) => changeSort(e)}>
+                            <option value= ""> Order By</option>
+                            <option value="AtoZ">A to Z</option>
+                            <option value="ZtoA">Z to A</option>
+                            <option value="pobAsc">Ascending Population</option>
+                            <option value="pobDes">Descending Population</option>
+                        </select>
+                                </div>
+                          
+                                
 
-                    <div className="Finder">
-                                <input  
-                                    placeholder="Find Country"
-                                    onChange={(e) => setFilter({ ...filter, name: e.target.value })}
-                                    value={filter.name}
-                                />
-                       
 
-                     </div>
+                                  
+
+
+                    
+
+
                 </div>
         
             <Cards countries={countries} />
-            
+            <h1> {page} of 25  </h1>
     </div>
     )
 }

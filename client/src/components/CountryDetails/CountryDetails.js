@@ -31,28 +31,28 @@ const CountrDetails = () => {
             </div>
             <div className="container-Details">
 
-                <h1>Name: {name}</h1>
-                <p>Country code: {alpha3Code}</p>
-                <p>Capital: {capital}</p>
-                <p>Region: {region}</p>
-                <p>Sub Region: {subregion}</p>
-                <p>Area: {area} Km2</p>
-                <p>Population: {population}</p>
+                <h1>{name}</h1>
+                <p>Country code: <span>{alpha3Code}</span> </p>
+                <p>Capital: <span>{capital}</span></p>
+                <p>Region: <span>{region}</span></p>
+                <p>Sub Region: <span>{subregion}</span></p>
+                <p>Area: <span>{area} Km2</span> </p>
+                <p>Population: <span>{population}</span></p>
                 {/* <p>Population: {formatNumber(population)}</p> */}
-                <span>
-                <h3>Activities:</h3>
+                
+                <h2>Activities:</h2>
                 <p>
                     {Activities&&Activities.length ?
                     Activities.map(a=>
-                    <p> Name: {a.name}      
-                        <p>Duration: {a.duration} Days  </p>   
-                        <p>Difficulty: {a.difficulty} </p>   
-                        <p>Season: {a.season}</p>  
+                    <p> Name: <span>{a.name} </span>      
+                        <p>Duration: <span>{a.duration}</span>  Days  </p>   
+                        <p>Difficulty: <span>{a.difficulty}</span> </p>   
+                        <p>Season: <span>{a.season}</span></p>  
                         
                     </p>) 
-                     : <p>No activities yet</p>}   
+                     : <span>No activities yet</span>}   
                 </p>
-            </span>
+            
             </div>
             </div>
 
