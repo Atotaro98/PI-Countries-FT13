@@ -12,7 +12,14 @@ const Order = () => {
 
     let { page: InitialPage, sort: srt } = useParams()
 
+    let countries = useSelector(state => state.countries)
+    var act = [];
+
     InitialPage = 1;
+
+
+    console.log("Countries-Length", countries.length)
+        
 
     let [page, setPage] = useState(parseInt(InitialPage))
 
@@ -20,10 +27,9 @@ const Order = () => {
 
     const dispatch = useDispatch()
 
-    let lastPage = 25;
+    
 
-    let countries = useSelector(state => state.countries)
-    var act = [];
+    
 
     countries.map(data => data.Activities.length && data.Activities.map(activity => activity.name && act.push(activity.name)));
 
@@ -46,10 +52,10 @@ const Order = () => {
 
     function nextPage(e) {
 
-        e.preventDefault();
+        
         
 
-        if (page < lastPage) {
+        if (countries.length === 10) {
             document.getElementById("prev").disabled = false;
             setPage(page + 1)
         } else {
@@ -153,7 +159,6 @@ const Order = () => {
                 </div>
         
             <Cards countries={countries} />
-            <h1> {page} of 25  </h1>
     </div>
     )
 }

@@ -28,13 +28,13 @@ let CreateDataBase = async () => {
 
 let countries = await axios.get(`https://restcountries.eu/rest/v2/all`)
 await Promise.all(countries.data.map((c) =>{
-    let data = {
+    let data = {  
         name: c.name,
         alpha3Code: c.alpha3Code,
         flag: c.flag,
-        capital: c.capital ? c.capital : 'no tiene capital',
-        region: c.region,
-        subregion: c.subregion,
+        capital: c.capital ? c.capital : 'No have Capital',
+        region: c.region ? c.region : 'No have Region',
+        subregion: c.subregion ? c.subregion : 'No have SubRegion',
         area: parseInt(c.area) ? parseInt(c.area) : 0,
         population: parseInt(c.population)  
     }
