@@ -3,30 +3,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router';
 import Cards from '../Cards/Cards';
 import { getPage } from '../../actions/actions';
+import { getAll } from '../../actions/actions';
 import { getByName } from '../../actions/actions';
+import Pagination from '../../helper/pagination';
 import './HomePage.css'
+import { get } from 'react-scroll/modules/mixins/scroller';
 
 
 
 const HomePage = () => {
     
-    let { page: InitialPage, sort: srt } = useParams()
+    let { sort: srt } = useParams()
     let countries = useSelector(state => state.countries)
-    InitialPage=1;
+
     var act = [];
-    
-    
-    console.log("Countries-Length", countries.length)
-        
-
-    let [page, setPage] = useState(parseInt(InitialPage))
-
-    let [sort, setSort] = useState(`${srt}`)
-
-    const dispatch = useDispatch()
-
-    
-
     
 
     countries.map(data => data.Activities.length && data.Activities.map(activity => activity.name && act.push(activity.name)));
@@ -34,43 +24,51 @@ const HomePage = () => {
     var uniqs = act.filter(function(item, index, array) {
         return array.indexOf(item) === index;
       })
-     console.log(uniqs);
+     console.log("Unicas Actividades", uniqs);
+        
 
 
-    const [filter, setFilter] = useState({ name: "", activity: ""});
+    let [sort, setSort] = useState(`${srt}`)
+
+    let [filter, setFilter] = useState({ name: "", activity: ""});
+
+    const dispatch = useDispatch()
+
+
+    const[pag,setpag]=useState({
+        currentpage:1,
+        countryPerPage:10,
+    })
+
+    const indexOfLastCountry = pag.currentpage * pag.countryPerPage;
+    const indexOfFirstCountry = indexOfLastCountry - pag.countryPerPage;
+    const currentCountry = countries.slice(indexOfFirstCountry, indexOfLastCountry);
+
+
+    const paginate=(pageNumber) =>setpag({
+        ...pag,
+        currentpage:pageNumber
+    })
+
+    
 
 
     useEffect(() => {
-        dispatch(getPage(page, sort))
-    }, [dispatch, page, sort]);
+        dispatch(getAll())
+    }, []);
+
+
+
+    useEffect(() => {
+        dispatch(getPage(sort))
+    }, [dispatch,sort]);
+
+
     useEffect(() => {
         dispatch(getByName(filter.name, filter.activity))
     }, [dispatch, filter])
 
 
-    function nextPage(e) {
-
-        
-        
-
-        if (countries.length === 10) {
-            document.getElementById("prev").disabled = false;
-            setPage(page + 1)
-        } else {
-            document.getElementById("next").disabled = true;
-        }
-    }
-
-    function prevPage(e) {
-        e.preventDefault();
-
-        if (page > 1) {
-            document.getElementById("next").disabled = false;
-            setPage(page - 1)
-        } else {
-            document.getElementById("prev").disabled = true;
-        }
-    }
     function changeSort(e) {
         setSort(e.target.value)
     } 
@@ -105,14 +103,7 @@ const HomePage = () => {
                                 </div> 
 
 
-                            {/* PAGINADO */}
-                    
-
-                            <div className="Paginado">
-                                    <button  id="prev" onClick={(e) => prevPage(e)}>{` < `}</button>
-                                                    <span> {page}  </span>
-                                    <button id="next" onClick={(e) => nextPage(e)}>{` > `}</button>
-                                </div>
+                          
 
                     
 
@@ -122,7 +113,7 @@ const HomePage = () => {
                             <div className="Order-By-Region">
 
                         <select  onChange={(e) => changeSort(e)}>
-                            <option value="">All Regions</option>
+                            <option value="default">All Regions</option>
                             <option value="Europe">Europe</option>
                             <option value="Americas">Americas</option>
                             <option value="Asia">Asia</option>
@@ -137,7 +128,7 @@ const HomePage = () => {
 
                                 <div className="Order-By-Name">
                         <select  onChange={(e) => changeSort(e)}>
-                            <option value= ""> Order By</option>
+                            <option value= "default"> Order By</option>
                             <option value="AtoZ">A to Z</option>
                             <option value="ZtoA">Z to A</option>
                             <option value="pobAsc">Ascending Population</option>
@@ -155,8 +146,10 @@ const HomePage = () => {
 
 
                 </div>
-        
-            <Cards countries={countries} />
+            <Pagination countryPerPage={pag.countryPerPage}  allCountries={countries.length} Paginate={paginate}/>
+            <Cards countries={currentCountry} />
+            
+            
     </div>
     )
 }
