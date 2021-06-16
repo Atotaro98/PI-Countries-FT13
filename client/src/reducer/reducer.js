@@ -1,5 +1,6 @@
 let initialState = {
   countries: [],
+  countriesAct:[],
   country: []
 };
 
@@ -9,14 +10,8 @@ const Actions = (state = initialState, action) => {
     case "GET_PAGE":
       return {
         ...state,
-        countries: action.payload
+        countries: action.payload,
       }
-    case "GET_ALL":
-      return {
-        ...state,
-        countries: action.payload
-      }
-
     case "GET_BY_ID":
       return {
         ...state,
@@ -26,6 +21,12 @@ const Actions = (state = initialState, action) => {
       return {
         ...state,
         countries: action.payload
+      }
+
+      case "GET_BY_ACTIVITY":
+      return {
+        ...state,
+        countriesAct: action.payload
       }
 
       case "POST_ACTIVITY":

@@ -2,22 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router';
 import Cards from '../Cards/Cards';
-import { getByName } from '../../actions/actions';
 import { getPage } from '../../actions/actions';
+import { getByName } from '../../actions/actions';
 import './HomePage.css'
 
 
 
 const HomePage = () => {
-
+    
     let { page: InitialPage, sort: srt } = useParams()
-
     let countries = useSelector(state => state.countries)
+    InitialPage=1;
     var act = [];
-
-    InitialPage = 1;
-
-
+    
+    
     console.log("Countries-Length", countries.length)
         
 
@@ -32,7 +30,7 @@ const HomePage = () => {
     
 
     countries.map(data => data.Activities.length && data.Activities.map(activity => activity.name && act.push(activity.name)));
-
+    console.log(countries)
     var uniqs = act.filter(function(item, index, array) {
         return array.indexOf(item) === index;
       })
@@ -78,7 +76,7 @@ const HomePage = () => {
     } 
 
     return (
-        <div>
+        <div className="HomePage">
             <div className="Display-Filters">
                         
 

@@ -44,12 +44,14 @@ const CountrDetails = () => {
                 <p>
                     {Activities&&Activities.length ?
                     Activities.map(a=>
-                    <p> Name: <span>{a.name} </span>      
+                    <li> Name: <span>{a.name} </span>      
                         <p>Duration: <span>{a.duration}</span>  Days  </p>   
                         <p>Difficulty: <span>{a.difficulty}</span> </p>   
-                        <p>Season: <span>{a.season}</span></p>  
+                        <p>Season: <span>{a.season}</span></p> 
+
+                        <div className="Actividad-Linea"></div>
                         
-                    </p>) 
+                    </li>) 
                      : <span>No activities yet</span>}   
                 </p>
             

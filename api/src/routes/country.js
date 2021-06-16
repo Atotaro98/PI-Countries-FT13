@@ -8,8 +8,6 @@ router.get("/", async (req, res) => {
         if(page==="all"){
             let country = await Countries.findAll({
                 include: { model: Activities },
-                limit: 10,
-                offset: 10 * (page - 1)
             })
             return country ? res.json(country) : res.sendStatus(404)
         }

@@ -1,4 +1,6 @@
-
+.HomePage{
+    min-height: 100vh;
+}
 
 .Display-Filters{
     display: flex;
