@@ -69,7 +69,7 @@ const AddActivity = () => {
         <div className="formulario">
             <div>
                 <form onSubmit={handlerSubmit}>
-                <label>Name</label>
+                <label>Activity Name</label>
                 <input name='name' value={InputActivity.name} onChange={handlerOnChange} required/>
 
                 <label>Duration</label>
@@ -102,10 +102,15 @@ const AddActivity = () => {
                 <option selected value={''}></option>
                 {countries && countries.map(el=>(<option value={el.alpha3Code+' '+el.name}>{el.name}</option>))}
                 </select>
-                <button type='submit'>Create</button>
+                <button className="Button-Create" type='submit'>Create</button>
 
 
-
+                
+                   
+                   {InputCountries ? InputCountries.map((el) => (
+                   <p key={el.alpha3Code}>  {el.name}<button onClick={() => setInputCountries(InputCountries.filter(e => e.name !== e.name))}>X</button> </p>)) :null}
+                   
+               
                 
 
                 </form>
@@ -121,12 +126,7 @@ const AddActivity = () => {
 
 
 
-                <ul>
-                   
-                   {InputCountries ? InputCountries.map((el) => (
-                   <p key={el.alpha3Code}>  {el.name}<button onClick={() => setInputCountries(InputCountries.filter(e => e.name !== e.name))}>X</button> </p>)) :null}
-                   
-               </ul>
+                
 
 
 
