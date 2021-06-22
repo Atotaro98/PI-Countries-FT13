@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const { Countries, Activities} = require('../db');
 
 router.get("/", async (req, res) => {
-    let { name, page, sort } = req.query
+    let { name, page, sort} = req.query
     try {
         if(page==="all"){
             let country = await Countries.findAll({
@@ -11,12 +11,13 @@ router.get("/", async (req, res) => {
             })
             return country ? res.json(country) : res.sendStatus(404)
         }
+     
         if (sort) {     
                     switch (sort) {
                         case "AtoZ":
                             return res.json(await Countries.findAll({
                                 order: [['name', 'ASC']],
-                                include: {model: Activities,},
+                                include: {model: Activities},
                                 
                             }))
                         case "ZtoA":
@@ -37,51 +38,7 @@ router.get("/", async (req, res) => {
                                 include: {model: Activities},
                                 
                             }))
-                        case "Europe":
-                            return res.json(await Countries.findAll({                      
-                            where: {region: { [Sequelize.Op.iLike]: `%Europe%` }},
-                            include: {model: Activities},
-                            
-                    }))
-
-                    case  "Americas":
-                        return res.json(await Countries.findAll({                           
-                                where: {region: { [Sequelize.Op.iLike]: `%Americas%` }},
-                                include: {model: Activities},
-                                
-                        }))
-
-                    case  "Asia":
-                            return res.json(await Countries.findAll({                              
-                                where: {region: { [Sequelize.Op.iLike]: `%Asia%` }},
-                                include: {model: Activities},
-                                
-                            }))
-
-
-                    case  "Africa":
-                                return res.json(await Countries.findAll({                                 
-                                    where: {region: { [Sequelize.Op.iLike]: `%Africa%` }},
-                                    include: {model: Activities},
-                                    
-                                }))
-
-                    case  "Oceania":
-                                return res.json(await Countries.findAll({
-                                   
-                                    where: {region: { [Sequelize.Op.iLike]: `%Oceania%` }},
-                                    include: {model: Activities},
-                                    
-                                }))
-
-
-                    case  "Polar":
-                                return res.json(await Countries.findAll({
-                                   
-                                    where: {region: { [Sequelize.Op.iLike]: `%Polar%` }},
-                                    include: {model: Activities},
-                                    
-                                }))
+                  
                     case "default":
                                     return res.json(await Countries.findAll({
                                         include: { model: Activities },
@@ -91,6 +48,8 @@ router.get("/", async (req, res) => {
 
                
             }
+
+        
 
         if (name) {
             let country = await Countries.findAll({

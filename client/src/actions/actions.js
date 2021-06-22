@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-let GET_PAGE = 'GET_PAGE';
 let GET_BY_ID = 'GET_BY_ID';
 let GET_ALL = 'GET_ALL'
 let GET_BY_NAME = 'GET_BY_NAME'
-let POST_ACTIVITY =  "POST_ACTIVITY"
 
 
 export let getAll = () => {
@@ -13,19 +11,24 @@ export let getAll = () => {
         dispatch({ type: GET_ALL, payload: response.data })
     }
 }
-
-export let getPage = (sort) => {
- return async (dispatch) => {
-        let response = await axios.get("http://localhost:3001/api/countries?sort=" + sort)
-        dispatch({ type: GET_PAGE, payload: response.data })
-    }
-}
-export let getByName = (name, activity) => {
+export let getByName = (name, activity, region, sort) => {
     return async (dispatch) => {
 
         let response = await axios.get("http://localhost:3001/api/countries?page=all")
         if (name) {
             response = await axios.get("http://localhost:3001/api/countries?name=" + name)
+        }
+
+
+        if (sort){
+            response = await axios.get("http://localhost:3001/api/countries?sort=" + sort)
+        }
+
+        
+        if (region) {
+            
+            response.data = response.data.filter(e => e.region === region)
+            
         }
         
         if (activity) {
@@ -35,13 +38,6 @@ export let getByName = (name, activity) => {
     }
 }
 
-// export let getByActivity = (activity) => {
-//     return async (dispatch) => {
-//         let response = await axios.get("http://localhost:3001/api/countries?page=all")
-//         response = await axios.get("http://localhost:3001/api/countries?activity=" + activity)
-//         dispatch({ type: GET_BY_ACTIVITY, payload: response.data })
-//     }
-// }
 
 
 export let getById = (id) => {

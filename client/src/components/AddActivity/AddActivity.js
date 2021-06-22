@@ -9,7 +9,7 @@ import './AddActivity.css'
 
 
 const AddActivity = () => {
-    const[Alert, setAlert] = useState("")
+   
     const[InputActivity, setInputActivity] = useState(
         {
             name:'',
@@ -38,10 +38,9 @@ const AddActivity = () => {
         e.preventDefault()
         let i = InputCountries.map(e => e.id)
         let sen = [InputActivity,i]
-        console.log("HOLA SEN",sen)
-        let al = await axios.post("http://localhost:3001/api/activity", sen)
-        console.log("HOLA AL",al.data.map(e => e.name),InputCountries.map(e => e.name))
-        // setAlert(al.data)
+        
+        await axios.post("http://localhost:3001/api/activity", sen)
+
         alert("ACTIVIDAD CREADA")
 
         setInputActivity({
@@ -56,14 +55,14 @@ const AddActivity = () => {
 
     function handlerOnChangeP(e){
         let aux = e.target.value.split(' ')
-        // console.log("Soy Aux",aux)
+       
         setInputCountries([
             ...InputCountries,{id:aux[0],name:aux[1]}
         ])
 
     
     }
-    // console.log(InputActivity)
+    
    console.log("Soy Input Countries",InputCountries)
     return(
         <div className="formulario">
@@ -107,10 +106,8 @@ const AddActivity = () => {
 
                 
                    
-                   {InputCountries ? InputCountries.map((el) => (
-                   <p key={el.alpha3Code}>  {el.name}<button onClick={() => setInputCountries(InputCountries.filter(e => e.name !== e.name))}>X</button> </p>)) :null}
+                   {InputCountries ? InputCountries.map((el) => ( <p key={el.id}>  {el.name}<button onClick={() => setInputCountries(InputCountries.filter(e => e.id !== e.id))}>X</button> </p>)) :null}
                    
-               
                 
 
                 </form>
@@ -130,7 +127,7 @@ const AddActivity = () => {
 
 
 
-               <h1>{Alert}</h1>
+               
 
 
         </div>

@@ -20,22 +20,22 @@ const About = () => {
                         
                         <h1 className="About-Text">Using the following technologies:</h1>
                         <div className="technologies-div">
-                            <img  className="technologies" src={Express}></img>
-                            <img  className="technologies" src={Postgres}></img>
-                            <img  className="technologies" src={ReactSvg}></img>
-                            <img  className="technologies" src={Redux}></img>
-                            <img  className="technologies" src={Sequelize}></img>
+                            <img  className="technologies" alt="ExpressImg" src={Express}></img>
+                            <img  className="technologies" alt="PostgresImg" src={Postgres}></img>
+                            <img  className="technologies" alt="ReactSvg" src={ReactSvg}></img>
+                            <img  className="technologies" alt="ReduxImg" src={Redux}></img>
+                            <img  className="technologies" alt="SequelizeImg" src={Sequelize}></img>
                         </div>
 
                         <div className="About-My">
                             <h1 className="About-Text">My social networks and where to contact me.</h1>
-                            <a href="https://www.linkedin.com/in/alejo-totaro-a65448196/" target="_blank"> <img className="technologies" src={Linkedin}></img> </a>
-                            <a href="mailto:alejocss1998@gmail.com" target="_blank"> <img className="technologies" src={Gmail}></img> </a>
-                            <a href="https://github.com/Atotaro98" target="_blank"> <img className="technologies" src={Github}></img> </a>
+                            <a href="https://www.linkedin.com/in/alejo-totaro-a65448196/" target="_blank" rel="noreferrer"> <img className="links" alt="LinkedinImg" src={Linkedin}></img> </a>
+                            <a href="mailto:alejocss1998@gmail.com" target="_blank" rel="noreferrer"> <img className="links" alt="GmailImg" src={Gmail}></img> </a>
+                            <a href="https://github.com/Atotaro98" target="_blank" rel="noreferrer"> <img className="links" alt="Github" src={Github}></img> </a>
                         </div>
             </div>
 
-                            <h3 className="Bottom-About">Made with <span  className="corazon animate__animated animate__pulse animate__infinite">❤</span> by Alejo Totaro.</h3>
+                            <h3 className="Bottom-About">Made with <span  className="corazon">❤</span> by Alejo Totaro.</h3>
         </div>
     )
 }

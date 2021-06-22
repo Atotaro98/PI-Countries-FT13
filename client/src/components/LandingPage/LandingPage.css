@@ -41,7 +41,14 @@
     
 }
 
-.animate__animated{
-  cursor: pointer;
-  animation-duration: 2s;
+.animation{
+    animation: rock 2s infinite linear;
+    cursor: pointer;
+}
+
+
+@keyframes rock{
+    50%{
+        transform: translateY(1rem);
+    }
 }

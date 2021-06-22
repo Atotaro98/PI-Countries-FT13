@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router';
 import Cards from '../Cards/Cards';
-import { getPage } from '../../actions/actions';
 import { getAll } from '../../actions/actions';
 import { getByName } from '../../actions/actions';
 import Pagination from '../../helper/pagination';
 import './HomePage.css'
-import { get } from 'react-scroll/modules/mixins/scroller';
 
 
 
 const HomePage = () => {
-    
-    let { sort: srt } = useParams()
+
     let countries = useSelector(state => state.countries)
 
     var act = [];
     
 
     countries.map(data => data.Activities.length && data.Activities.map(activity => activity.name && act.push(activity.name)));
-    console.log(countries)
+    // console.log(countries)
     var uniqs = act.filter(function(item, index, array) {
         return array.indexOf(item) === index;
       })
-     console.log("Unicas Actividades", uniqs);
-        
+    //  console.log("Unicas Actividades", uniqs);
 
-
-    let [sort, setSort] = useState(`${srt}`)
-
-    let [filter, setFilter] = useState({ name: "", activity: ""});
+    let [filter, setFilter] = useState({ name: "", activity: "", region: "", sort: ""});
 
     const dispatch = useDispatch()
 
@@ -50,28 +42,14 @@ const HomePage = () => {
         currentpage:pageNumber
     })
 
-    
-
-
     useEffect(() => {
         dispatch(getAll())
     }, []);
 
 
-
     useEffect(() => {
-        dispatch(getPage(sort))
-    }, [dispatch,sort]);
-
-
-    useEffect(() => {
-        dispatch(getByName(filter.name, filter.activity))
+        dispatch(getByName(filter.name, filter.activity, filter.region, filter.sort))
     }, [dispatch, filter])
-
-
-    function changeSort(e) {
-        setSort(e.target.value)
-    } 
 
     return (
         <div className="HomePage">
@@ -112,8 +90,8 @@ const HomePage = () => {
 
                             <div className="Order-By-Region">
 
-                        <select  onChange={(e) => changeSort(e)}>
-                            <option value="default">All Regions</option>
+                        <select  onChange={(e) => setFilter({...filter, region: e.target.value})}>
+                            <option value="">All Regions</option>
                             <option value="Europe">Europe</option>
                             <option value="Americas">Americas</option>
                             <option value="Asia">Asia</option>
@@ -122,13 +100,14 @@ const HomePage = () => {
                             <option value="Polar">Polar</option>
                          </select>
                             </div> 
+                            
                      
 
                             {/* ORDERNADO POR NOMBRE O POBLACION */}
 
                                 <div className="Order-By-Name">
-                        <select  onChange={(e) => changeSort(e)}>
-                            <option value= "default"> Order By</option>
+                        <select  onChange={(e) => setFilter({...filter, sort: e.target.value})}>
+                            <option value= ""> Order By</option>
                             <option value="AtoZ">A to Z</option>
                             <option value="ZtoA">Z to A</option>
                             <option value="pobAsc">Ascending Population</option>
@@ -136,14 +115,6 @@ const HomePage = () => {
                         </select>
                                 </div>
                           
-                                
-
-
-                                  
-
-
-                    
-
 
                 </div>
             <Pagination countryPerPage={pag.countryPerPage}  allCountries={countries.length} Paginate={paginate}/>
