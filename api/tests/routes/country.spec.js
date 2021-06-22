@@ -2,11 +2,12 @@
 const { expect } = require('chai');
 const session = require('supertest-session');
 const app = require('../../src/app.js');
-const { Country, conn } = require('../../src/db.js');
+const { Countries, conn } = require('../../src/db.js');
+
 
 const agent = session(app);
-const country = {
-  name: 'Argentina',
+const Country = {
+  name: 'Argentina'
 };
 
 describe('Country routes', () => {
@@ -14,11 +15,11 @@ describe('Country routes', () => {
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   }));
-  beforeEach(() => Country.sync({ force: true })
-    .then(() => Country.create(pokemon)));
-  describe('GET /countries', () => {
+  beforeEach(() => Countries.sync({ force: false })
+    .then(() => Countries.findAll(Country)));
+  describe('GET /api/countries?name=argentina', () => {
     it('should get 200', () =>
-      agent.get('/countries').expect(200)
+      agent.get('/api/countries?name=argentina').expect(200)
     );
   });
 });

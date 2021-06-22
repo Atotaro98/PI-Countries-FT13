@@ -10,7 +10,7 @@ export const Nav = () => {
             <div>
             <NavLink
                 activeStyle={{ color: '#b3b3b3', fontWeight: 'bold' }}
-                className="Link" to='/home' >
+                className="Link" to='/' >
                 <span>Home</span>
             </NavLink>
             </div>

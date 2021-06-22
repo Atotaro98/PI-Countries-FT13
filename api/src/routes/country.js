@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
             let country = await Countries.findAll({
                 include: { model: Activities },
             })
-            return country ? res.json(country) : res.sendStatus(404)
+            return country ? res.status(200).json(country) : res.sendStatus(404)
         }
      
         if (sort) {     
