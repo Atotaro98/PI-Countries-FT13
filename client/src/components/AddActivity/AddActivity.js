@@ -62,6 +62,12 @@ const AddActivity = () => {
 
     
     }
+
+    function RemoveCountry(id) {
+        const newCountries = InputCountries.filter((e) => e.id !== id);
+     
+        setInputCountries(newCountries);
+      }
     
    console.log("Soy Input Countries",InputCountries)
     return(
@@ -106,7 +112,7 @@ const AddActivity = () => {
 
                 
                    
-                   {InputCountries ? InputCountries.map((el) => ( <p key={el.id}>  {el.name}<button onClick={() => setInputCountries(InputCountries.filter(e => e.id !== e.id))}>X</button> </p>)) :null}
+                   {InputCountries ? InputCountries.map((el) => ( <p key={el.id}>  {el.name}<button onClick={() => RemoveCountry(el.id)}>X</button> </p>)) :null}
                    
                 
 

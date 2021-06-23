@@ -1,4 +1,4 @@
-import { Route } from 'react-router';
+import { Redirect, Route } from 'react-router';
 import './App.css';
 import { Nav } from './components/Nav/Nav';
 import LandingPage  from './components/LandingPage/LandingPage';
@@ -10,7 +10,7 @@ import About from './components/About/About';
 function App() {
   return (
     <div className="App">
-      
+      <Redirect from='/' to='/home'></Redirect>
       <Route  exact path={["/","/home"]}><LandingPage/></Route>
       <Route  path={["/","/home", "/country", "/add", "/about"]}><Nav/></Route>
       <Route  exact path={["/","/home"]}><HomePage/></Route>
