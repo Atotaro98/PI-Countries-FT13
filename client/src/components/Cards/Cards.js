@@ -11,12 +11,13 @@ const Cards = ({countries}) => {
           countries.map((c) => (
             <div>
               
-              <Link style={{textDecoration: 'none' }} to={`/country/${c.alpha3Code}`} key={`link_${c.alpha3Code}`}>
+              <Link style={{textDecoration: 'none' }} to={`/country/${c.alpha3Code}`} key={c.alpha3Code}>
                     <Card
+                        key={c.alpha3Code}
                         name={c.name}
                         flag={c.flag}
                         region={c.region}
-                        key={c.alpha3Code}
+                        
                     />
                 </Link>
                 

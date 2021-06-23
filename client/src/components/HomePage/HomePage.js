@@ -63,7 +63,7 @@ const HomePage = () => {
                                             placeholder="Find Country"
                                             onChange={(e) => setFilter({ ...filter, name: e.target.value })}
                                             value={filter.name}
-                                            class="form-control"
+                                            
                                         />
                             
 
